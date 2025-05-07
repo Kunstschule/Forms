@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jetzt anmelden</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css" />
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #F4F8FD;
+      color: #0D007A;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #F4F8FD;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      text-align: center;
+      color: #0D007A;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      color: #0D007A;
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 14px;
+      width: 100%;
+      background-color: #0D007A;
+      color: white;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #07005b;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Jetzt anmelden</h1>
+    <form action="register.php" method="POST">
+      <label for="city">Standort der Schule *</label>
+      <select id="city" name="city" required>
+        <option value="">Bitte wählen</option>
+        <option value="Konstanz">Konstanz</option>
+        <option value="Singen">Singen</option>
+      </select>
+
+      <label for="course">Wählen Sie einen Malkurs *</label>
+      <select id="course" name="course" required>
+        <option value="">Bitte wählen</option>
+        <option value="Allgemeiner Malkurs">Allgemeiner Malkurs</option>
+        <option value="Entwicklungskunst Malkurs">Entwicklungskunst Malkurs</option>
+        <option value="Plastilinografie-Kurs">Plastilinografie-Kurs</option>
+        <option value="Kreativität entfalten Malkurs">Kreativität entfalten Malkurs</option>
+      </select>
+
+      <label for="children">Vor- und Nachname des Kindes *</label>
+      <input type="text" id="children" name="children" required />
+
+      <label for="birth_date">Geburtsdatum des Kindes *</label>
+      <input type="date" id="birth_date" name="birth_date" required />
+
+      <label for="salutation">Wie möchten Sie angesprochen werden *</label>
+      <select id="salutation" name="salutation" required>
+        <option value="">Bitte wählen</option>
+        <option value="Frau">Frau</option>
+        <option value="Herr">Herr</option>
+      </select>
+
+      <label for="parent_name">Ihr Vor- und Nachname *</label>
+      <input type="text" id="parent_name" name="parent_name" required />
+
+      <label for="email">Ihre E-Mail-Adresse *</label>
+      <input type="email" id="email" name="email" required />
+
+      <label for="phone">Telefonnummer *</label>
+      <input type="tel" id="phone" required />
+      <input type="hidden" name="phone" />
+
+      <button type="submit">Messenger wählen</button>
+    </form>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"></script>
+  <script>
+    const input = document.querySelector("#phone");
+    const hiddenInput = document.querySelector('input[name="phone"]');
+
+    const iti = window.intlTelInput(input, {
+      initialCountry: "auto",
+      geoIpLookup: function(callback) {
+        fetch("https://ipapi.co/json")
+          .then(res => res.json())
+          .then(data => callback(data.country_code))
+          .catch(() => callback("DE"));
+      },
+      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js",
+    });
+
+    document.querySelector("form").addEventListener("submit", function () {
+      hiddenInput.value = iti.getNumber();
+    });
+  </script>
+</body>
+</html>
