@@ -4,64 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Messenger wählen</title>
+
   <style>
-    body {
-      font-family: sans-serif;
-      background-color: #F4F8FD;
-      color: #0D007A;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    .container {
-      max-width: 400px;
-      margin: 40px auto;
-      background-color: #F4F8FD;
-      padding: 20px 15px;
-      border-radius: 20px;
-      text-align: center;
-    }
-    h1 {
-      margin-bottom: 30px;
-      font-size: 24px;
-      color: #0D007A;
-    }
-    .messenger-button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 12px;
-      border: none;
-      border-radius: 12px;
-      font-size: 27px;
-      font-weight: bold;
-      width: 100%;
-      margin: 10px 0;
-      cursor: pointer;
-      text-decoration: none;
-      color: #0D007A;
-    }
-    .whatsapp {
-      background-color: #8DF192;
-    }
-    .telegram {
-      background-color: #8DDCF1;
-    }
-    .messenger-button:hover {
-      opacity: 0.9;
-    }
-    .icon {
-      width: 84px;
-      height: 84px;
-      margin-right: 10px;
-    }
-    .separator {
-      height: 2px;
-      width: 100%;
-      background-color: white;
-      border-radius: 2px;
-      margin: 20px 0;
-    }
+    body{font-family:sans-serif;background:#F4F8FD;color:#0D007A;margin:0;padding:0}
+    .container{max-width:400px;margin:40px auto;background:#F4F8FD;
+               padding:20px 15px;border-radius:20px;text-align:center}
+    h1{margin-bottom:30px;font-size:24px}
+    .messenger-button{display:flex;align-items:center;justify-content:center;
+      padding:12px;border:none;border-radius:12px;font-size:27px;font-weight:bold;
+      width:100%;margin:10px 0;cursor:pointer;text-decoration:none;color:#0D007A}
+    .whatsapp{background:#8DF192}
+    .telegram{background:#8DDCF1}
+    .messenger-button:hover{opacity:.9}
+    .icon{width:84px;height:84px;margin-right:10px}
+    .separator{height:2px;width:100%;background:#fff;border-radius:2px;margin:20px 0}
   </style>
 </head>
 <body>
@@ -69,49 +25,50 @@
     <h1>Wählen Sie einen Messenger</h1>
 
     <a class="messenger-button whatsapp" id="whatsappBtn" href="#">
-      <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
-      WhatsApp
+      <img class="icon"
+           src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+           alt="WhatsApp"> WhatsApp
     </a>
 
     <div class="separator"></div>
 
     <a class="messenger-button telegram" id="telegramBtn" href="#">
-      <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram" />
-      Telegram
+      <img class="icon"
+           src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg"
+           alt="Telegram"> Telegram
     </a>
   </div>
 
   <script>
+    // 🔗 Deep‑links к мессенджерам
     const whatsappLink = "https://wa.me/4915560490150?text=Hallo!%20Senden%20Sie%20uns%20diese%20Nachricht!";
     const telegramLink = "https://t.me/KinderkunstschuleBot";
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get("token");
+    // 📌 Достаём token из URL
+    const token = new URLSearchParams(location.search).get("token") || "";
 
-    if (!token) {
-      alert("Fehler: Kein Token gefunden.");
-    }
+    if (!token) alert("Fehler: Kein Token gefunden.");
 
-    function sendMessengerChoice(messenger, redirectUrl) {
-      fetch("https://agent.kunstschulehurvich.de/webhook/messenger-hook", {
+    // 📤 Функция отправки выбора в n8n
+    function sendChoice(messenger, redirectUrl) {
+      fetch("https://kunst.app.n8n.cloud/webhook/select-messenger", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messenger, token })
-      }).finally(() => {
-        window.location.href = redirectUrl;
-      });
+      })
+      .finally(() => location.href = redirectUrl);
     }
 
-    document.getElementById("whatsappBtn").addEventListener("click", function (e) {
-      e.preventDefault();
-      sendMessengerChoice("whatsapp", whatsappLink);
-    });
+    // 👆 Обработчики кликов
+    document.getElementById("whatsappBtn")
+            .addEventListener("click", e => { e.preventDefault();
+              sendChoice("whatsapp", whatsappLink); });
 
-    document.getElementById("telegramBtn").addEventListener("click", function (e) {
-      e.preventDefault();
-      sendMessengerChoice("telegram", telegramLink);
-    });
+    document.getElementById("telegramBtn")
+            .addEventListener("click", e => { e.preventDefault();
+              sendChoice("telegram", telegramLink); });
   </script>
 </body>
 </html>
+
 
