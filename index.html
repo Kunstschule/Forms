@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jetzt anmelden</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.min.css" />
   <style>
     body {
       font-family: sans-serif;
@@ -101,8 +101,7 @@
       <input type="email" id="email" name="email" required />
 
       <label for="phone">Telefonnummer *</label>
-      <input type="tel" id="phone" required />
-      <input type="hidden" name="phone" />
+      <input type="tel" id="phone" name="phone" required />
 
       <button type="submit">Messenger wählen</button>
     </form>
@@ -112,7 +111,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"></script>
   <script>
     const input = document.querySelector("#phone");
-    const hiddenInput = document.querySelector('input[name="phone"]');
 
     const iti = window.intlTelInput(input, {
       initialCountry: "auto",
@@ -126,9 +124,8 @@
     });
 
     document.querySelector("form").addEventListener("submit", function () {
-      hiddenInput.value = iti.getNumber();
+      input.value = iti.getNumber(); // Обновляем поле прямо перед отправкой
     });
   </script>
 </body>
 </html>
-
