@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
@@ -82,11 +82,9 @@
   </div>
 
   <script>
-    // Ссылки на мессенджеры
     const whatsappLink = "https://wa.me/4915560490150?text=Hallo!%20Senden%20Sie%20uns%20diese%20Nachricht!";
     const telegramLink = "https://t.me/KinderkunstschuleBot";
 
-    // Получаем token из URL
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get("token");
 
@@ -94,19 +92,16 @@
       alert("Fehler: Kein Token gefunden.");
     }
 
-    // Отправка выбора в n8n
     function sendMessengerChoice(messenger, redirectUrl) {
-      fetch("http://46.101.132.9:5678/webhook/messenger-hook", {
+      fetch("https://agent.kunstschulehurvich.de/webhook/messenger-hook", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messenger, token })
       }).finally(() => {
-        // После отправки переходим в выбранный мессенджер
         window.location.href = redirectUrl;
       });
     }
 
-    // Обработка кнопок
     document.getElementById("whatsappBtn").addEventListener("click", function (e) {
       e.preventDefault();
       sendMessengerChoice("whatsapp", whatsappLink);
@@ -119,3 +114,4 @@
   </script>
 </body>
 </html>
+
