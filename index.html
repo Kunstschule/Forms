@@ -64,7 +64,7 @@
 <body>
   <div class="container">
     <h1>Jetzt anmelden</h1>
-    <form action="https://kunst.app.n8n.cloud/webhook/255b2119-8ccf-422e-be5a-acc1750aec6c" method="POST">
+    <form action="https://agent.kunstschulehurvich.de/webhook/form-1" method="POST">
       <label for="city">Standort der Schule *</label>
       <select id="city" name="city" required>
         <option value="">Bitte wählen</option>
@@ -101,7 +101,8 @@
       <input type="email" id="email" name="email" required />
 
       <label for="phone">Telefonnummer *</label>
-      <input type="tel" id="phone" name="phone" required />
+      <input type="tel" id="phone" required />
+      <input type="hidden" name="phone" />
 
       <button type="submit">Messenger wählen</button>
     </form>
@@ -111,6 +112,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"></script>
   <script>
     const input = document.querySelector("#phone");
+    const hiddenInput = document.querySelector('input[name="phone"]');
 
     const iti = window.intlTelInput(input, {
       initialCountry: "auto",
@@ -124,9 +126,8 @@
     });
 
     document.querySelector("form").addEventListener("submit", function () {
-      input.value = iti.getNumber();
+      hiddenInput.value = iti.getNumber();
     });
   </script>
 </body>
 </html>
-
