@@ -64,7 +64,7 @@
 <body>
   <div class="container">
     <h1>Jetzt anmelden</h1>
-    <form action="https://agent.kunstschulehurvich.de/webhook/form-1" method="POST">
+    <form id="anmeldeFormular">
       <label for="city">Standort der Schule *</label>
       <select id="city" name="city" required>
         <option value="">Bitte wählen</option>
@@ -125,8 +125,29 @@
       utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js",
     });
 
-    document.querySelector("form").addEventListener("submit", function () {
+    const form = document.getElementById("anmeldeFormular");
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault(); // остановить стандартную отправку
+
       hiddenInput.value = iti.getNumber();
+
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        await fetch("https://kunst.app.n8n.cloud/webhook/255b2119-8ccf-422e-be5a-acc1750aec6c", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        // переходим на messenger.html
+        window.location.href = "messenger.html";
+      } catch (error) {
+        alert("Fehler beim Senden des Formulars. Bitte versuchen Sie es später erneut.");
+      }
     });
   </script>
 </body>
