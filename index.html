@@ -4,67 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jetzt anmelden</title>
-
   <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css">
-
   <style>
-    body{font-family:sans-serif;background:#F4F8FD;color:#0D007A;margin:0;padding:20px}
-    .container{max-width:600px;margin:0 auto;background:#F4F8FD;padding:30px;border-radius:16px;box-shadow:0 0 12px rgba(0,0,0,.08)}
-    h1{text-align:center;color:#0D007A}
-    label{display:block;margin-top:15px;font-weight:bold}
-    input,select{width:100%;padding:10px;margin-top:5px;border:1px solid #ccc;border-radius:8px;font-size:16px;color:#0D007A}
-    button{margin-top:25px;padding:14px;width:100%;background:#0D007A;color:#fff;font-size:18px;border:none;border-radius:10px;cursor:pointer}
-    button:hover{background:#07005b}
+    /* ваши стили */
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Jetzt anmelden</h1>
 
-    <!-- Production Webhook n8n -->
+    <!-- Обратите внимание: action и method оставляем, но сабмит мы перехватим в JS -->
     <form id="anmeldeFormular"
           action="https://kunst.app.n8n.cloud/webhook/register-user"
-          method="post" accept-charset="utf-8">
+          method="post"
+          accept-charset="utf-8">
 
-      <label for="city">Standort der Schule *</label>
-      <select id="city" name="city" required>
-        <option value="">Bitte wählen</option>
-        <option value="Konstanz">Konstanz</option>
-        <option value="Singen">Singen</option>
-      </select>
-
-      <label for="course">Wählen Sie einen Malkurs *</label>
-      <select id="course" name="course" required>
-        <option value="">Bitte wählen</option>
-        <option value="Allgemeiner Malkurs">Allgemeiner Malkurs</option>
-        <option value="Entwicklungskunst Malkurs">Entwicklungskunst Malkurs</option>
-        <option value="Plastilinografie-Kurs">Plastilinografie-Kurs</option>
-        <option value="Kreativität entfalten Malkurs">Kreativität entfalten Malkurs</option>
-      </select>
-
-      <label for="children">Vor- und Nachname des Kindes *</label>
-      <input type="text" id="children" name="children" required>
-
-      <label for="birth_date">Geburtsdatum des Kindes *</label>
-      <input type="date" id="birth_date" name="birth_date" required>
-
-      <label for="salutation">Wie möchten Sie angesprochen werden *</label>
-      <select id="salutation" name="salutation" required>
-        <option value="">Bitte wählen</option>
-        <option value="Frau">Frau</option>
-        <option value="Herr">Herr</option>
-      </select>
-
-      <label for="parent_name">Ihr Vor- und Nachname *</label>
-      <input type="text" id="parent_name" name="parent_name" required>
-
-      <label for="email">Ihre E-Mail-Adresse *</label>
-      <input type="email" id="email" name="email" required>
+      <!-- остальные поля город, курс, имя, дата и т.д. -->
 
       <label for="phone">Telefonnummer *</label>
-      <input type="tel" id="phone" required>
-      <input type="hidden" name="phone">
+      <input type="tel" id="phoneInput" required>
+      <!-- это скрытое поле отправится через FormData -->
+      <input type="hidden" name="phone" id="phoneHidden">
 
       <button type="submit">Messenger wählen</button>
     </form>
@@ -73,24 +34,48 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"></script>
   <script>
-    const input       = document.querySelector('#phone');
-    const hiddenInput = document.querySelector('input[name="phone"]');
-
-    const iti = window.intlTelInput(input, {
+    // Инициализируем intl-tel-input
+    const phoneInput   = document.querySelector('#phoneInput');
+    const phoneHidden  = document.querySelector('#phoneHidden');
+    const iti = window.intlTelInput(phoneInput, {
       initialCountry: "auto",
       geoIpLookup: cb => {
-        fetch('https://ipapi.co/json').then(r => r.json())
-             .then(d => cb(d.country_code))
-             .catch(() => cb('DE'));
+        fetch('https://ipapi.co/json')
+          .then(r => r.json())
+          .then(d => cb(d.country_code))
+          .catch(() => cb('DE'));
       },
       utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js',
     });
 
-    // только подставляем форматированный номер – отправкой управляет браузер
-    document.getElementById('anmeldeFormular')
-            .addEventListener('submit', () => {
-              hiddenInput.value = iti.getNumber();
-            });
+    // Новый обработчик сабмита
+    const form = document.getElementById('anmeldeFormular');
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+
+      // Кладём отформатированный номер в скрытое поле
+      phoneHidden.value = iti.getNumber();
+
+      // Собираем FormData со всеми полями формы
+      const formData = new FormData(form);
+
+      try {
+        // Отправляем на n8n webhook
+        const resp = await fetch(form.action, {
+          method: form.method,
+          body: formData,
+        });
+
+        // Читаем JSON-ответ вида { "redirectUrl": "https://…?token=…" }
+        const { redirectUrl } = await resp.json();
+
+        // Перенаправляем браузер
+        window.location.href = redirectUrl;
+      } catch (err) {
+        console.error('Ошибка при регистрации:', err);
+        alert('Извините, что-то пошло не так. Попробуйте еще раз.');
+      }
+    });
   </script>
 </body>
 </html>
