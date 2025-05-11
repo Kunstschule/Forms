@@ -41,9 +41,9 @@
 
   <script>
     (function() {
-      const whatsappLink = "https://wa.me/4915560490150?text=Hallo!%20Senden%20Sie%20uns%20diese%20Nachricht!";
-      const telegramLink = "https://t.me/KinderkunstschuleBot";
-
+      // Ссылки для мессенджеров
+      const whatsappLink = "https://api.whatsapp.com/send?phone=4915560490150&text=Hallo!%20Senden%20Sie%20uns%20diese%20Nachricht!";
+      
       // Получаем token из URL (?token=...)
       const token = new URLSearchParams(window.location.search).get("token") || "";
 
@@ -51,6 +51,9 @@
         alert("Fehler: Kein Token gefunden.");
         return;
       }
+
+      // Telegram deep link с передачей токена боту через параметр start
+      const telegramLink = `https://t.me/KinderkunstschuleBot?start=${token}`;
 
       // Функция отправки выбора мессенджера
       function sendChoice(messenger, redirectUrl) {
@@ -64,15 +67,13 @@
         });
       }
 
-      // Навешиваем обработчики
+      // Навешиваем обработчики на кнопки
       document.getElementById("whatsappBtn").addEventListener("click", function(e) {
-        e.preventDefault();
-        sendChoice("whatsapp", whatsappLink);
+        e.preventDefault(); sendChoice("whatsapp", whatsappLink);
       });
 
       document.getElementById("telegramBtn").addEventListener("click", function(e) {
-        e.preventDefault();
-        sendChoice("telegram", telegramLink);
+        e.preventDefault(); sendChoice("telegram", telegramLink);
       });
     })();
   </script>
