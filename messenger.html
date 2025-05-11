@@ -40,34 +40,41 @@
   </div>
 
   <script>
-    const whatsappLink = "https://wa.me/4915560490150?text=Hallo!%20Senden%20Sie%20uns%20diese%20Nachricht!";
-    const telegramLink = "https://t.me/KinderkunstschuleBot";
+    (function() {
+      const whatsappLink = "https://wa.me/4915560490150?text=Hallo!%20Senden%20Sie%20uns%20diese%20Nachricht!";
+      const telegramLink = "https://t.me/KinderkunstschuleBot";
 
-    const token = new URLSearchParams(location.search).get("token") || "";
+      // Получаем token из URL (?token=...)
+      const token = new URLSearchParams(window.location.search).get("token") || "";
 
-    if (!token) {
-      alert("Fehler: Kein Token gefunden.");
-      return;
-    }
+      if (!token) {
+        alert("Fehler: Kein Token gefunden.");
+        return;
+      }
 
-    function sendChoice(messenger, redirectUrl) {
-      fetch("https://kunst.app.n8n.cloud/webhook/choose-messenger", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messenger, token })
-      })
-      .finally(() => location.href = redirectUrl);
-    }
+      // Функция отправки выбора мессенджера
+      function sendChoice(messenger, redirectUrl) {
+        fetch("https://kunst.app.n8n.cloud/webhook/choose-messenger", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messenger, token })
+        })
+        .finally(() => {
+          window.location.href = redirectUrl;
+        });
+      }
 
-    document.getElementById("whatsappBtn")
-            .addEventListener("click", e => { e.preventDefault();
-              sendChoice("whatsapp", whatsappLink); });
+      // Навешиваем обработчики
+      document.getElementById("whatsappBtn").addEventListener("click", function(e) {
+        e.preventDefault();
+        sendChoice("whatsapp", whatsappLink);
+      });
 
-    document.getElementById("telegramBtn")
-            .addEventListener("click", e => { e.preventDefault();
-              sendChoice("telegram", telegramLink); });
+      document.getElementById("telegramBtn").addEventListener("click", function(e) {
+        e.preventDefault();
+        sendChoice("telegram", telegramLink);
+      });
+    })();
   </script>
 </body>
 </html>
-
-
