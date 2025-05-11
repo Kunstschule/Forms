@@ -51,7 +51,7 @@
 
     // 📤 Функция отправки выбора в n8n
     function sendChoice(messenger, redirectUrl) {
-      fetch("https://kunst.app.n8n.cloud/webhook/select-messenger", {
+      fetch("https://kunst.app.n8n.cloud/webhook/choose-messenger", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messenger, token })
