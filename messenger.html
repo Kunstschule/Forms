@@ -40,16 +40,16 @@
   </div>
 
   <script>
-    // 🔗 Deep‑links к мессенджерам
     const whatsappLink = "https://wa.me/4915560490150?text=Hallo!%20Senden%20Sie%20uns%20diese%20Nachricht!";
     const telegramLink = "https://t.me/KinderkunstschuleBot";
 
-    // 📌 Достаём token из URL
     const token = new URLSearchParams(location.search).get("token") || "";
 
-    if (!token) alert("Fehler: Kein Token gefunden.");
+    if (!token) {
+      alert("Fehler: Kein Token gefunden.");
+      return;
+    }
 
-    // 📤 Функция отправки выбора в n8n
     function sendChoice(messenger, redirectUrl) {
       fetch("https://kunst.app.n8n.cloud/webhook/choose-messenger", {
         method: "POST",
@@ -59,7 +59,6 @@
       .finally(() => location.href = redirectUrl);
     }
 
-    // 👆 Обработчики кликов
     document.getElementById("whatsappBtn")
             .addEventListener("click", e => { e.preventDefault();
               sendChoice("whatsapp", whatsappLink); });
