@@ -64,38 +64,24 @@
 
   <script>
     (function() {
-      // Получаем token из URL (?token=...)
       const token = new URLSearchParams(window.location.search).get("token") || "";
-      if (!token) {
-        alert("Fehler: Kein Token gefunden.");
-        return;
-      }
-
-      // Предустановленное сообщение для WhatsApp
-      const waMessage = "Hallo! Senden Sie uns diese Nachricht.";
+      if (!token) { alert("Fehler: Kein Token gefunden."); return; }
+      const waMessage = window.userLang &&
+            (window.locales && window.locales[window.userLang]?.wa_message) ||
+            "Hello!";
       const waText = encodeURIComponent(waMessage);
       const whatsappLink = `https://api.whatsapp.com/send?phone=4915560490150&text=${waText}`;
-
-      // Telegram deep link: параметр start содержит токен
       const telegramLink = `https://t.me/KinderkunstschuleBot?start=${token}`;
-
-      // Функция отправки выбора мессенджера в n8n и сохранения языка
       function sendChoice(messenger, redirectUrl) {
         fetch("https://kunst.app.n8n.cloud/webhook/choose-messenger", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ messenger, token, language: window.userLang })
-        })
-        .finally(() => {
-          window.location.href = redirectUrl;
-        });
+        }).finally(() => { window.location.href = redirectUrl; });
       }
-
-      // Обработчики кликов
       document.getElementById("whatsappBtn").addEventListener("click", function(e) {
         e.preventDefault(); sendChoice("whatsapp", whatsappLink);
       });
-
       document.getElementById("telegramBtn").addEventListener("click", function(e) {
         e.preventDefault(); sendChoice("telegram", telegramLink);
       });
