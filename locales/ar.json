@@ -1,5 +1,16 @@
 {
   "title": "تسجيل",
-  "label_city": "موقع المدرسة",
-  "btn_submit": "اختر المراسِل"
+  "label_city": "موقع المدرسة *",
+  "option_choose": "الرجاء الاختيار",
+  "label_course": "اختر دورة رسم *",
+  "label_children": "الاسم الكامل للطفل *",
+  "label_birth_date": "تاريخ ميلاد الطفل *",
+  "label_salutation": "كيف تريد أن نناديك؟ *",
+  "label_parent_name": "اسمك الكامل *",
+  "label_email": "عنوان بريدك الإلكتروني *",
+  "label_phone": "رقم الهاتف *",
+  "btn_submit": "اختر المراسِل",
+  "messenger_title": "اختر المراسِل",
+  "messenger_whatsapp": "واتساب",
+  "messenger_telegram": "تلغرام"
 }
