@@ -3,6 +3,10 @@
   "label_city": "School location *",
   "option_choose": "Please choose",
   "label_course": "Select a painting course *",
+  "course_general": "General painting course",
+  "course_development": "Development course for toddlers",
+  "course_plastilinography": "Plastilinography course",
+  "course_creativity": "Creativity development course",
   "label_children": "Child’s full name *",
   "label_birth_date": "Child’s birth date *",
   "label_salutation": "How would you like us to address you? *",
@@ -12,6 +16,8 @@
   "btn_submit": "Choose messenger",
   "messenger_title": "Choose a messenger",
   "messenger_whatsapp": "WhatsApp",
-  "messenger_telegram": "Telegram"
+  "messenger_telegram": "Telegram",
+  "wa_message": "Hello! Send us this message.",
+  "tg_message": "Hello! Please send us a message."
 }
 
