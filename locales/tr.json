@@ -3,6 +3,10 @@
   "label_city": "Okul konumu *",
   "option_choose": "Lütfen seçin",
   "label_course": "Bir resim kursu seçin *",
+  "course_general": "Genel resim kursu",
+  "course_development": "Küçük çocuklar için gelişim kursu",
+  "course_plastilinography": "Plastilinografi kursu",
+  "course_creativity": "Yaratıcılık geliştirme kursu",
   "label_children": "Çocuğun tam adı *",
   "label_birth_date": "Çocuğun doğum tarihi *",
   "label_salutation": "Size nasıl hitap edelim? *",
@@ -12,6 +16,8 @@
   "btn_submit": "Messenger seç",
   "messenger_title": "Bir messenger seçin",
   "messenger_whatsapp": "WhatsApp",
-  "messenger_telegram": "Telegram"
+  "messenger_telegram": "Telegram",
+  "wa_message": "Merhaba! Bu mesajı gönderin.",
+  "tg_message": "Merhaba! Lütfen bize mesaj gönderin."
 }
 
