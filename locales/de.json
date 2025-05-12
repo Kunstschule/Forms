@@ -1,5 +1,16 @@
 {
   "title": "Jetzt anmelden",
-  "label_city": "Standort der Schule",
-  "btn_submit": "Messenger wählen"
+  "label_city": "Standort der Schule *",
+  "option_choose": "Bitte wählen",
+  "label_course": "Wählen Sie einen Malkurs *",
+  "label_children": "Vor- und Nachname des Kindes *",
+  "label_birth_date": "Geburtsdatum des Kindes *",
+  "label_salutation": "Wie möchten Sie angesprochen werden? *",
+  "label_parent_name": "Ihr Vor- und Nachname *",
+  "label_email": "Ihre E-Mail-Adresse *",
+  "label_phone": "Telefonnummer *",
+  "btn_submit": "Messenger wählen",
+  "messenger_title": "Messenger wählen",
+  "messenger_whatsapp": "WhatsApp",
+  "messenger_telegram": "Telegram"
 }
