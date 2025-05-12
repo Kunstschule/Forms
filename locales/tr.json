@@ -1,5 +1,17 @@
 {
   "title": "Kaydol",
-  "label_city": "Okul konumu",
-  "btn_submit": "Messenger seç"
+  "label_city": "Okul konumu *",
+  "option_choose": "Lütfen seçin",
+  "label_course": "Bir resim kursu seçin *",
+  "label_children": "Çocuğun tam adı *",
+  "label_birth_date": "Çocuğun doğum tarihi *",
+  "label_salutation": "Size nasıl hitap edelim? *",
+  "label_parent_name": "Adınız ve soyadınız *",
+  "label_email": "E-posta adresiniz *",
+  "label_phone": "Telefon numarası *",
+  "btn_submit": "Messenger seç",
+  "messenger_title": "Bir messenger seçin",
+  "messenger_whatsapp": "WhatsApp",
+  "messenger_telegram": "Telegram"
 }
+
