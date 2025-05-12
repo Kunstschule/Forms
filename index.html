@@ -22,12 +22,11 @@
   <div class="container">
     <h1 data-i18n="title">Jetzt anmelden</h1>
 
-    <!-- Production Webhook n8n -->
     <form id="anmeldeFormular"
           action="https://kunst.app.n8n.cloud/webhook/register-user"
           method="post" accept-charset="utf-8">
 
-      <!-- Hidden language field -->
+      <!-- Hidden language field (уже есть) -->
       <input type="hidden" name="language" id="language-input" value="">
 
       <label data-i18n="label_city" for="city">Standort der Schule *</label>
@@ -40,10 +39,10 @@
       <label data-i18n="label_course" for="course">Wählen Sie einen Malkurs *</label>
       <select id="course" name="course" required>
         <option value="" data-i18n="option_choose">Bitte wählen</option>
-        <option value="Allgemeiner Malkurs">Allgemeiner Malkurs</option>
-        <option value="Entwicklungskunst Malkurs">Entwicklungskunst Malkurs</option>
-        <option value="Plastilinografie-Kurs">Plastilinografie-Kurs</option>
-        <option value="Kreativität entfalten Malkurs">Kreativität entfalten Malkurs</option>
+        <option value="Allgemeiner Malkurs" data-i18n="course_general">Allgemeiner Malkurs</option>
+        <option value="Entwicklungskunst Malkurs" data-i18n="course_development">Entwicklungskunst Malkurs</option>
+        <option value="Plastilinografie-Kurs" data-i18n="course_plastilinography">Plastilinografie-Kurs</option>
+        <option value="Kreativität entfalten Malkurs" data-i18n="course_creativity">Kreativität entfalten Malkurs</option>
       </select>
 
       <label data-i18n="label_children" for="children">Vor- und Nachname des Kindes *</label>
@@ -97,7 +96,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"></script>
   <script>
-    // 1. Инициализация intl-tel-input для форматирования номера
     const input = document.getElementById('phone');
     const hiddenInput = document.getElementById('phoneHidden');
     const iti = window.intlTelInput(input, {
@@ -111,28 +109,15 @@
       utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js',
     });
 
-    // 2. Перехват сабмита и отправка через fetch
     const form = document.getElementById('anmeldeFormular');
     form.addEventListener('submit', async e => {
       e.preventDefault();
-      // Кладём форматированный номер в скрытое поле
       hiddenInput.value = iti.getNumber();
-
-      // Собираем данные формы
       const formData = new FormData(form);
-
       try {
-        // Отправляем на n8n webhook
-        const resp = await fetch(form.action, {
-          method: form.method,
-          body: formData,
-        });
+        const resp = await fetch(form.action, { method: form.method, body: formData });
         if (!resp.ok) throw new Error(`Server error: ${resp.status}`);
-
-        // Получаем JSON { redirectUrl: "..." }
         const { redirectUrl } = await resp.json();
-
-        // Перенаправляем пользователя
         window.location.href = redirectUrl;
       } catch (error) {
         console.error('Ошибка при регистрации:', error);
