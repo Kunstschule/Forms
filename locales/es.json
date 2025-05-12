@@ -1,5 +1,16 @@
 {
   "title": "Registro",
-  "label_city": "Ubicación de la escuela",
-  "btn_submit": "Elegir mensajero"
+  "label_city": "Ubicación de la escuela *",
+  "option_choose": "Por favor, elija",
+  "label_course": "Seleccione un curso de pintura *",
+  "label_children": "Nombre completo del niño *",
+  "label_birth_date": "Fecha de nacimiento del niño *",
+  "label_salutation": "¿Cómo desea que le llamemos? *",
+  "label_parent_name": "Su nombre completo *",
+  "label_email": "Su dirección de correo electrónico *",
+  "label_phone": "Número de teléfono *",
+  "btn_submit": "Elegir mensajero",
+  "messenger_title": "Seleccione un mensajero",
+  "messenger_whatsapp": "WhatsApp",
+  "messenger_telegram": "Telegram"
 }
