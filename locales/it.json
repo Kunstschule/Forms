@@ -1,5 +1,16 @@
 {
-  "title": "Registrarsi",
-  "label_city": "Sede della scuola",
-  "btn_submit": "Scegli messenger"
+  "title": "Registrazione",
+  "label_city": "Sede della scuola *",
+  "option_choose": "Per favore, scegli",
+  "label_course": "Seleziona un corso di pittura *",
+  "label_children": "Nome completo del bambino *",
+  "label_birth_date": "Data di nascita del bambino *",
+  "label_salutation": "Come preferisci essere chiamato? *",
+  "label_parent_name": "Il tuo nome completo *",
+  "label_email": "Il tuo indirizzo email *",
+  "label_phone": "Numero di telefono *",
+  "btn_submit": "Scegli messenger",
+  "messenger_title": "Scegli un messenger",
+  "messenger_whatsapp": "WhatsApp",
+  "messenger_telegram": "Telegram"
 }
