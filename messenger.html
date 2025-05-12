@@ -48,9 +48,10 @@
         return;
       }
 
-      // Предустановленное сообщение для WhatsApp, включая токен
-      const waText = `Hallo!%20Ich%20möchte%20mich%20anmelden.%20Mein%20Token%20ist%20${encodeURIComponent(token)}`;
-      const whatsappLink = `https://api.whatsapp.com/send?phone=4915560490150&text=${waText}`;
+      // Предустановленное сообщение для WhatsApp
+       const waMessage = "Hallo! Senden Sie uns diese Nachricht.";
+       const waText    = encodeURIComponent(waMessage);
+       const whatsappLink = `https://api.whatsapp.com/send?phone=4915560490150&text=${waText}`;
 
       // Telegram deep link: параметр start содержит токен
       const telegramLink = `https://t.me/KinderkunstschuleBot?start=${token}`;
