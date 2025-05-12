@@ -1,5 +1,17 @@
 {
   "title": "Register",
-  "label_city": "School location",
-  "btn_submit": "Choose messenger"
+  "label_city": "School location *",
+  "option_choose": "Please choose",
+  "label_course": "Select a painting course *",
+  "label_children": "Child’s full name *",
+  "label_birth_date": "Child’s birth date *",
+  "label_salutation": "How would you like us to address you? *",
+  "label_parent_name": "Your full name *",
+  "label_email": "Your email address *",
+  "label_phone": "Phone number *",
+  "btn_submit": "Choose messenger",
+  "messenger_title": "Choose a messenger",
+  "messenger_whatsapp": "WhatsApp",
+  "messenger_telegram": "Telegram"
 }
+
