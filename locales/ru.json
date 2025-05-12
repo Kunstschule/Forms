@@ -3,6 +3,10 @@
   "label_city": "Город *",
   "option_choose": "Пожалуйста, выберите",
   "label_course": "Выберите курс рисования *",
+  "course_general": "Общий курс живописи",
+  "course_development": "Развивающий курс для малышей",
+  "course_plastilinography": "Курс Пластилинографии",
+  "course_creativity": "Курс развитие креатива",
   "label_children": "ФИО ребёнка *",
   "label_birth_date": "Дата рождения ребёнка *",
   "label_salutation": "Как к вам обращаться? *",
@@ -12,5 +16,7 @@
   "btn_submit": "Выбрать мессенджер",
   "messenger_title": "Выберите мессенджер",
   "messenger_whatsapp": "WhatsApp",
-  "messenger_telegram": "Telegram"
+  "messenger_telegram": "Telegram",
+  "wa_message": "Привет! Отправьте нам это сообщение.",
+  "tg_message": "Привет! Пожалуйста, напишите нам сообщение."
 }
