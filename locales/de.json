@@ -3,6 +3,10 @@
   "label_city": "Standort der Schule *",
   "option_choose": "Bitte wählen",
   "label_course": "Wählen Sie einen Malkurs *",
+  "course_general": "Allgemeiner Malkurs",
+  "course_development": "Entwicklungskunst Malkurs",
+  "course_plastilinography": "Plastilinografie-Kurs",
+  "course_creativity": "Kreativität entfalten Malkurs",
   "label_children": "Vor- und Nachname des Kindes *",
   "label_birth_date": "Geburtsdatum des Kindes *",
   "label_salutation": "Wie möchten Sie angesprochen werden? *",
@@ -12,5 +16,7 @@
   "btn_submit": "Messenger wählen",
   "messenger_title": "Messenger wählen",
   "messenger_whatsapp": "WhatsApp",
-  "messenger_telegram": "Telegram"
+  "messenger_telegram": "Telegram",
+  "wa_message": "Hallo! Senden Sie uns diese Nachricht.",
+  "tg_message": "Hallo! Schreiben Sie uns bitte."
 }
