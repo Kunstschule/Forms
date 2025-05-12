@@ -3,6 +3,10 @@
   "label_city": "موقع المدرسة *",
   "option_choose": "الرجاء الاختيار",
   "label_course": "اختر دورة رسم *",
+  "course_general": "دورة الرسم العامة",
+  "course_development": "دورة تنمية للأطفال الصغار",
+  "course_plastilinography": "دورة البلاستيلينغرافيا",
+  "course_creativity": "دورة تطوير الإبداع",
   "label_children": "الاسم الكامل للطفل *",
   "label_birth_date": "تاريخ ميلاد الطفل *",
   "label_salutation": "كيف تريد أن نناديك؟ *",
@@ -12,5 +16,7 @@
   "btn_submit": "اختر المراسِل",
   "messenger_title": "اختر المراسِل",
   "messenger_whatsapp": "واتساب",
-  "messenger_telegram": "تلغرام"
+  "messenger_telegram": "تلغرام",
+  "wa_message": "مرحبًا! أرسل لنا هذه الرسالة.",
+  "tg_message": "مرحبًا! يرجى إرسال رسالة لنا."
 }
