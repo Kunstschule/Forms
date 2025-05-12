@@ -1,5 +1,16 @@
 {
   "title": "Регистрация",
-  "label_city": "Город",
-  "btn_submit": "Выбрать мессенджер"
+  "label_city": "Город *",
+  "option_choose": "Пожалуйста, выберите",
+  "label_course": "Выберите курс рисования *",
+  "label_children": "ФИО ребёнка *",
+  "label_birth_date": "Дата рождения ребёнка *",
+  "label_salutation": "Как к вам обращаться? *",
+  "label_parent_name": "Ваши ФИО *",
+  "label_email": "Ваш адрес электронной почты *",
+  "label_phone": "Номер телефона *",
+  "btn_submit": "Выбрать мессенджер",
+  "messenger_title": "Выберите мессенджер",
+  "messenger_whatsapp": "WhatsApp",
+  "messenger_telegram": "Telegram"
 }
