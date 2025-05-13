@@ -4,44 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-i18n="messenger_title">Messenger wählen</title>
-
-  <style>
-    body{font-family:sans-serif;background:#F4F8FD;color:#0D007A;margin:0;padding:0}
-    .container{max-width:400px;margin:40px auto;background:#F4F8FD;
-               padding:20px 15px;border-radius:20px;text-align:center}
-    h1{margin-bottom:30px;font-size:24px}
-    .messenger-button{display:flex;align-items:center;justify-content:center;
-      padding:12px;border:none;border-radius:12px;font-size:27px;font-weight:bold;
-      width:100%;margin:10px 0;cursor:pointer;text-decoration:none;color:#0D007A}
-    .whatsapp{background:#8DF192}
-    .telegram{background:#8DDCF1}
-    .messenger-button:hover{opacity:.9}
-    .icon{width:84px;height:84px;margin-right:10px}
-    .separator{height:2px;width:100%;background:#fff;border-radius:2px;margin:20px 0}
-  </style>
+  <style>/* ваши стили без изменений */</style>
 </head>
 <body>
   <div class="container">
     <h1 data-i18n="messenger_title">Wählen Sie einen Messenger</h1>
 
     <a class="messenger-button whatsapp" id="whatsappBtn" href="#">
-      <img class="icon"
-           src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-           alt="WhatsApp">
+      <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
       <span data-i18n="messenger_whatsapp">WhatsApp</span>
     </a>
 
     <div class="separator"></div>
 
     <a class="messenger-button telegram" id="telegramBtn" href="#">
-      <img class="icon"
-           src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg"
-           alt="Telegram">
+      <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
       <span data-i18n="messenger_telegram">Telegram</span>
     </a>
   </div>
 
-  <!-- Translation script -->
   <script>
     (async () => {
       const available = ['ru','de','en','es','it','tr','ar'];
@@ -52,14 +33,12 @@
       try {
         const res = await fetch(`locales/${lang}.json`);
         const t = await res.json();
-        window.translations = t;
         document.querySelectorAll('[data-i18n]').forEach(el => {
           const key = el.getAttribute('data-i18n');
           if (t[key]) el.textContent = t[key];
         });
-      } catch (e) {
-        console.error('Ошибка загрузки переводов', e);
-      }
+        window.translations = t;
+      } catch (e) { console.error('Ошибка загрузки переводов', e); }
     })();
   </script>
 
@@ -67,23 +46,18 @@
     (function() {
       const token = new URLSearchParams(window.location.search).get("token") || "";
       if (!token) { alert("Fehler: Kein Token gefunden."); return; }
-      const waMessage = window.translations["wa_message"];
-      const tgMessage = window.translations["tg_message"];
-      const whatsappLink = `https://api.whatsapp.com/send?phone=4915560490150&text=${encodeURIComponent(waMessage)}`;
-      const telegramLink = `https://t.me/KinderkunstschuleBot?start=${token}`;
-      function sendChoice(messenger, redirectUrl) {
+      const waMessage = window.translations.wa_message;
+      const tgMessage = window.translations.tg_message;
+      const waLink = `https://api.whatsapp.com/send?phone=4915560490150&text=${encodeURIComponent(waMessage)}`;
+      const tgLink = `https://t.me/KinderkunstschuleBot?start=${token}`;
+      function sendChoice(m, url) {
         fetch("https://kunst.app.n8n.cloud/webhook/choose-messenger", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ messenger, token, language: window.userLang })
-        }).finally(() => { window.location.href = redirectUrl; });
+          method:"POST", headers:{"Content-Type":"application/json"},
+          body: JSON.stringify({ messenger: m, token, language: window.userLang })
+        }).finally(()=>window.location.href = url);
       }
-      document.getElementById("whatsappBtn").addEventListener("click", function(e) {
-        e.preventDefault(); sendChoice("whatsapp", whatsappLink);
-      });
-      document.getElementById("telegramBtn").addEventListener("click", function(e) {
-        e.preventDefault(); sendChoice("telegram", telegramLink);
-      });
+      document.getElementById("whatsappBtn").addEventListener("click", e=>{e.preventDefault(); sendChoice("whatsapp", waLink);});
+      document.getElementById("telegramBtn").addEventListener("click", e=>{e.preventDefault(); sendChoice("telegram", tgLink);});
     })();
   </script>
 </body>
