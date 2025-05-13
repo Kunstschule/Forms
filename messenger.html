@@ -28,8 +28,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 60px;            /* фиксированная высота */
-      padding: 0 18px;          /* убрать вертикальный padding */
+      height: 60px;
+      padding: 0 18px;
       margin: 10px 0;
       font-size: 18px;
       font-weight: bold;
@@ -102,10 +102,12 @@
       }
 
       // Подготовка ссылок
-      const waHref = `https://api.whatsapp.com/send?phone=4915560490150&text=${encodeURIComponent(t['wa_message'])}`;
-      const tgHref = `https://t.me/KinderkunstschuleBot?start=${token}`;
-      const waBtn = document.getElementById('whatsappBtn');
-      const tgBtn = document.getElementById('telegramBtn');
+      const waMessage = t['wa_message'];
+      const waHref   = `https://api.whatsapp.com/send?phone=4915560490150&text=${encodeURIComponent(waMessage)}`;
+      const tgHref   = `https://t.me/KinderkunstschuleBot?start=${token}`;
+      const waBtn    = document.getElementById('whatsappBtn');
+      const tgBtn    = document.getElementById('telegramBtn');
+
       waBtn.setAttribute('href', waHref);
       tgBtn.setAttribute('href', tgHref);
 
@@ -113,15 +115,26 @@
         fetch('https://kunst.app.n8n.cloud/webhook/choose-messenger', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ messenger, token, language: window.userLang })
+          body: JSON.stringify({
+            messenger,
+            token,
+            language: window.userLang,
+            wa_message: waMessage
+          })
         })
         .finally(() => {
           window.open(href, '_blank');
         });
       }
 
-      waBtn.addEventListener('click', e => { e.preventDefault(); sendChoice('whatsapp', waHref); });
-      tgBtn.addEventListener('click', e => { e.preventDefault(); sendChoice('telegram', tgHref); });
+      waBtn.addEventListener('click', e => {
+        e.preventDefault();
+        sendChoice('whatsapp', waHref);
+      });
+      tgBtn.addEventListener('click', e => {
+        e.preventDefault();
+        sendChoice('telegram', tgHref);
+      });
     })();
   </script>
 </body>
