@@ -5,7 +5,7 @@
   "label_course": "Выберите курс рисования *",
   "course_general": "Общий курс живописи",
   "course_development": "Развивающий курс для малышей",
-  "course_plastilinography": "Курс Пластилинографии",
+  "course_plastilinography": "Курс пластилинографии",
   "course_creativity": "Курс развитие креатива",
   "label_children": "ФИО ребёнка *",
   "label_birth_date": "Дата рождения ребёнка *",
@@ -17,5 +17,5 @@
   "messenger_title": "Выберите мессенджер",
   "messenger_whatsapp": "WhatsApp",
   "messenger_telegram": "Telegram",
-  "wa_message": "Привет! Отправьте нам это сообщение.",
+  "wa_message": "Отправьте это сообщение, для подтверждения вашего номера телефона."
 }
