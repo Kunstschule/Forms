@@ -4,9 +4,9 @@
   "option_choose": "الرجاء الاختيار",
   "label_course": "اختر دورة رسم *",
   "course_general": "دورة الرسم العامة",
-  "course_development": "دورة تنمية للأطفال الصغار",
-  "course_plastilinography": "دورة البلاستيلينغرافيا",
-  "course_creativity": "دورة تطوير الإبداع",
+  "course_development": "دورة تطوير للأطفال",
+  "course_plastilinography": "دورة البلاستيلينوغرافي",
+  "course_creativity": "دورة تنمية الإبداع",
   "label_children": "الاسم الكامل للطفل *",
   "label_birth_date": "تاريخ ميلاد الطفل *",
   "label_salutation": "كيف تريد أن نناديك؟ *",
@@ -17,5 +17,5 @@
   "messenger_title": "اختر المراسِل",
   "messenger_whatsapp": "واتساب",
   "messenger_telegram": "تلغرام",
-  "wa_message": "مرحبًا! أرسل لنا هذه الرسالة.",
+  "wa_message": "أرسل هذه الرسالة لتأكيد رقم هاتفك."
 }
