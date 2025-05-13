@@ -4,7 +4,7 @@
   "option_choose": "Per favore, scegli",
   "label_course": "Seleziona un corso di pittura *",
   "course_general": "Corso generale di pittura",
-  "course_development": "Corso di sviluppo per bambini piccoli",
+  "course_development": "Corso di sviluppo per bambini",
   "course_plastilinography": "Corso di plastilinografia",
   "course_creativity": "Corso di sviluppo della creatività",
   "label_children": "Nome completo del bambino *",
@@ -17,5 +17,5 @@
   "messenger_title": "Scegli un messenger",
   "messenger_whatsapp": "WhatsApp",
   "messenger_telegram": "Telegram",
-  "wa_message": "Ciao! Inviaci questo messaggio.",
+  "wa_message": "Invia questo messaggio per confermare il tuo numero di telefono."
 }
