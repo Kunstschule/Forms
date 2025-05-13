@@ -3,26 +3,68 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-i18n="messenger_title">Messenger wählen</title>
-  <style>/* ваши стили без изменений */</style>
+  <title data-i18n="messenger_title">Wählen Sie einen Messenger</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #F4F8FD;
+      color: #0D007A;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 400px;
+      margin: 40px auto;
+      background: #F4F8FD;
+      padding: 20px;
+      border-radius: 20px;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 30px;
+      font-size: 24px;
+    }
+    .messenger-button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 18px;
+      font-weight: bold;
+      color: #0D007A;
+      text-decoration: none;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      background: #fff;
+      cursor: pointer;
+    }
+    .whatsapp { background: #8DF192; }
+    .telegram { background: #8DDCF1; }
+    .messenger-button:hover { opacity: 0.9; }
+    .separator {
+      height: 2px;
+      width: 100%;
+      background: #fff;
+      margin: 20px 0;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <h1 data-i18n="messenger_title">Wählen Sie einen Messenger</h1>
 
-    <a class="messenger-button whatsapp" id="whatsappBtn" href="#">
-      <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+    <a id="whatsappBtn" class="messenger-button whatsapp">
       <span data-i18n="messenger_whatsapp">WhatsApp</span>
     </a>
 
     <div class="separator"></div>
 
-    <a class="messenger-button telegram" id="telegramBtn" href="#">
-      <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+    <a id="telegramBtn" class="messenger-button telegram">
       <span data-i18n="messenger_telegram">Telegram</span>
     </a>
   </div>
 
+  <!-- Translation script -->
   <script>
     (async () => {
       const available = ['ru','de','en','es','it','tr','ar'];
@@ -38,26 +80,44 @@
           if (t[key]) el.textContent = t[key];
         });
         window.translations = t;
-      } catch (e) { console.error('Ошибка загрузки переводов', e); }
+      } catch (e) {
+        console.error('Ошибка загрузки переводов', e);
+      }
     })();
   </script>
 
+  <!-- Messenger choice script -->
   <script>
     (function() {
-      const token = new URLSearchParams(window.location.search).get("token") || "";
-      if (!token) { alert("Fehler: Kein Token gefunden."); return; }
-      const waMessage = window.translations.wa_message;
-      const tgMessage = window.translations.tg_message;
-      const waLink = `https://api.whatsapp.com/send?phone=4915560490150&text=${encodeURIComponent(waMessage)}`;
-      const tgLink = `https://t.me/KinderkunstschuleBot?start=${token}`;
-      function sendChoice(m, url) {
-        fetch("https://kunst.app.n8n.cloud/webhook/choose-messenger", {
-          method:"POST", headers:{"Content-Type":"application/json"},
-          body: JSON.stringify({ messenger: m, token, language: window.userLang })
-        }).finally(()=>window.location.href = url);
+      const token = new URLSearchParams(window.location.search).get('token') || '';
+      if (!token) {
+        alert('Fehler: Kein Token gefunden.');
+        return;
       }
-      document.getElementById("whatsappBtn").addEventListener("click", e=>{e.preventDefault(); sendChoice("whatsapp", waLink);});
-      document.getElementById("telegramBtn").addEventListener("click", e=>{e.preventDefault(); sendChoice("telegram", tgLink);});
+
+      const waMessage = window.translations.wa_message;
+      const whatsappLink = `https://api.whatsapp.com/send?phone=4915560490150&text=${encodeURIComponent(waMessage)}`;
+      const telegramLink  = `https://t.me/KinderkunstschuleBot?start=${token}`;
+
+      function sendChoice(messenger, redirectUrl) {
+        fetch('https://kunst.app.n8n.cloud/webhook/choose-messenger', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messenger, token, language: window.userLang })
+        })
+        .finally(() => {
+          window.location.href = redirectUrl;
+        });
+      }
+
+      document.getElementById('whatsappBtn').addEventListener('click', e => {
+        e.preventDefault();
+        sendChoice('whatsapp', whatsappLink);
+      });
+      document.getElementById('telegramBtn').addEventListener('click', e => {
+        e.preventDefault();
+        sendChoice('telegram', telegramLink);
+      });
     })();
   </script>
 </body>
