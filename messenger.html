@@ -25,7 +25,9 @@
       font-size: 24px;
     }
     .messenger-button {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 100%;
       padding: 18px;
       margin: 10px 0;
@@ -37,6 +39,11 @@
       border-radius: 12px;
       background: #fff;
       cursor: pointer;
+    }
+    .messenger-button img.icon {
+      width: 24px;
+      height: 24px;
+      margin-right: 8px;
     }
     .whatsapp { background: #8DF192; }
     .telegram { background: #8DDCF1; }
@@ -54,12 +61,14 @@
     <h1 data-i18n="messenger_title">Wählen Sie einen Messenger</h1>
 
     <a id="whatsappBtn" class="messenger-button whatsapp" href="#">
+      <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
       <span data-i18n="messenger_whatsapp">WhatsApp</span>
     </a>
 
     <div class="separator"></div>
 
     <a id="telegramBtn" class="messenger-button telegram" href="#">
+      <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
       <span data-i18n="messenger_telegram">Telegram</span>
     </a>
   </div>
