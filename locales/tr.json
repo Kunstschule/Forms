@@ -4,7 +4,7 @@
   "option_choose": "Lütfen seçin",
   "label_course": "Bir resim kursu seçin *",
   "course_general": "Genel resim kursu",
-  "course_development": "Küçük çocuklar için gelişim kursu",
+  "course_development": "Çocuklar için gelişim kursu",
   "course_plastilinography": "Plastilinografi kursu",
   "course_creativity": "Yaratıcılık geliştirme kursu",
   "label_children": "Çocuğun tam adı *",
@@ -17,6 +17,5 @@
   "messenger_title": "Bir messenger seçin",
   "messenger_whatsapp": "WhatsApp",
   "messenger_telegram": "Telegram",
-  "wa_message": "Merhaba! Bu mesajı gönderin.",
+  "wa_message": "Telefon numaranızı onaylamak için bu mesajı gönderin."
 }
-
