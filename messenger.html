@@ -52,6 +52,7 @@
       try {
         const res = await fetch(`locales/${lang}.json`);
         const t = await res.json();
+        window.translations = t;
         document.querySelectorAll('[data-i18n]').forEach(el => {
           const key = el.getAttribute('data-i18n');
           if (t[key]) el.textContent = t[key];
@@ -66,11 +67,9 @@
     (function() {
       const token = new URLSearchParams(window.location.search).get("token") || "";
       if (!token) { alert("Fehler: Kein Token gefunden."); return; }
-      const waMessage = window.userLang &&
-            (window.locales && window.locales[window.userLang]?.wa_message) ||
-            "Hello!";
-      const waText = encodeURIComponent(waMessage);
-      const whatsappLink = `https://api.whatsapp.com/send?phone=4915560490150&text=${waText}`;
+      const waMessage = window.translations["wa_message"];
+      const tgMessage = window.translations["tg_message"];
+      const whatsappLink = `https://api.whatsapp.com/send?phone=4915560490150&text=${encodeURIComponent(waMessage)}`;
       const telegramLink = `https://t.me/KinderkunstschuleBot?start=${token}`;
       function sendChoice(messenger, redirectUrl) {
         fetch("https://kunst.app.n8n.cloud/webhook/choose-messenger", {
