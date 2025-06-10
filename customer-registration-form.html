@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="title">Anmeldeformular</title>
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css">
+
+  <style>
+    body{font-family:sans-serif;background:#F4F8FD;color:#0D007A;margin:0;padding:20px}
+    .container{max-width:600px;margin:0 auto;background:#F4F8FD;padding:30px;border-radius:16px;box-shadow:0 0 12px rgba(0,0,0,.08)}
+    h1,h2{text-align:center;color:#0D007A}
+    label{display:block;margin-top:15px;font-weight:bold}
+    input,select{width:100%;padding:10px;margin-top:5px;border:1px solid #ccc;border-radius:8px;font-size:16px;color:#0D007A}
+    .messenger-buttons {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+      justify-content: center;
+    }
+    .messenger-button {
+      display: inline-block;
+      padding: 12px 24px;
+      font-size: 16px;
+      text-decoration: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .telegram { background-color: #0088cc; }
+    .whatsapp { background-color: #25D366; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 data-i18n="title">Anmeldeformular</h1>
+
+    <form id="anmeldeFormular"
+          action="https://walrus-app-2jjgm.ondigitalocean.app/webhook/register-and-redirect"
+          method="post" accept-charset="utf-8">
+
+      <input type="hidden" name="language" id="language-input" value="">
+      <input type="hidden" name="messenger" id="messenger-input" value="">
+
+      <label data-i18n="label_city" for="city">Standort der Schule *</label>
+      <select id="city" name="city" required>
+        <option value="" data-i18n="option_choose">Bitte wählen</option>
+        <option value="Konstanz">Konstanz</option>
+        <option value="Singen">Singen</option>
+      </select>
+
+      <label data-i18n="label_course" for="course">Wählen Sie einen Malkurs *</label>
+      <select id="course" name="course" required>
+        <option value="" data-i18n="option_choose">Bitte wählen</option>
+        <option value="Allgemeiner Malkurs">Allgemeiner Malkurs</option>
+        <option value="Entwicklungskunst Malkurs">Entwicklungskunst Malkurs</option>
+        <option value="Plastilinografie-Kurs">Plastilinografie-Kurs</option>
+        <option value="Kreativität entfalten Malkurs">Kreativität entfalten Malkurs</option>
+      </select>
+
+      <label data-i18n="label_children" for="children">Vor- und Nachname des Kindes *</label>
+      <input type="text" id="children" name="children" required>
+
+      <label data-i18n="label_birth_date" for="birth_date">Geburtsdatum des Kindes *</label>
+      <input type="date" id="birth_date" name="birth_date" required>
+
+      <label data-i18n="label_salutation" for="salutation">Wie möchten Sie angesprochen werden *</label>
+      <select id="salutation" name="salutation" required>
+        <option value="" data-i18n="option_choose">Bitte wählen</option>
+        <option value="Frau">Frau</option>
+        <option value="Herr">Herr</option>
+      </select>
+
+      <label data-i18n="label_parent_name" for="parent_name">Ihr Vor- und Nachname *</label>
+      <input type="text" id="parent_name" name="parent_name" required>
+
+      <label data-i18n="label_email" for="email">Ihre E-Mail-Adresse *</label>
+      <input type="email" id="email" name="email" required>
+
+      <label data-i18n="label_phone" for="phone">Telefonnummer *</label>
+      <input type="tel" id="phone" required placeholder="+49 123 4567890">
+      <input type="hidden" name="phone" id="phoneHidden">
+
+      <h2 data-i18n="choose_messenger">Messenger wählen</h2>
+      <div class="messenger-buttons">
+        <span class="messenger-button telegram" onclick="submitWithMessenger('Telegram')" data-i18n="telegram">Telegram</span>
+        <span class="messenger-button whatsapp" onclick="submitWithMessenger('WhatsApp')" data-i18n="whatsapp">WhatsApp</span>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function submitWithMessenger(messenger) {
+      const form = document.getElementById('anmeldeFormular');
+      const messengerInput = document.getElementById('messenger-input');
+      messengerInput.value = messenger;
+
+      // Проверка всех полей формы
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      // Сначала обновим номер телефона
+      const hiddenInput = document.getElementById('phoneHidden');
+      hiddenInput.value = iti.getNumber();
+
+      // Формируем и отправляем запрос
+      const formData = new FormData(form);
+      fetch(form.action, {
+        method: form.method,
+        body: formData
+      })
+      .then(response => response.json())
+      .then(result => {
+        if (result.url) {
+          window.location.href = result.url;
+        } else {
+          alert("Keine Weiterleitungs-URL erhalten.");
+        }
+      })
+      .catch(error => {
+        console.error('Fehler bei der Registrierung:', error);
+        alert('Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.');
+      });
+    }
+
+    (async () => {
+      const available = ['ru','de','en','es','it','tr','ar'];
+      let lang = navigator.language.slice(0,2);
+      if (!available.includes(lang)) lang = 'en';
+      if (lang === 'ar') document.documentElement.dir = 'rtl';
+      document.getElementById('language-input').value = lang;
+      try {
+        const res = await fetch(`locales/${lang}.json`);
+        const t = await res.json();
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if (t[key]) el.textContent = t[key];
+        });
+      } catch (e) {
+        console.error('Fehler beim Laden der Übersetzungen', e);
+      }
+    })();
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"></script>
+  <script>
+    const input = document.getElementById('phone');
+    const iti = window.intlTelInput(input, {
+      initialCountry: "auto",
+      geoIpLookup: cb => {
+        fetch('https://ipapi.co/json')
+          .then(r => r.json())
+          .then(d => cb(d.country_code))
+          .catch(() => cb('DE'));
+      },
+      utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js',
+    });
+  </script>
+</body>
+</html>
