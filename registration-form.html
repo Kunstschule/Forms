@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registration Form</title>
+  <script>
+    // Supported languages
+    const translations = {
+      en: {
+        title: "Registration Form",
+        child_name: "Child's Name",
+        birth_date: "Birth Date",
+        salutation: "Salutation",
+        parent_name: "Parent's Name",
+        email: "Email",
+        phone: "Phone",
+        city: "City",
+        course: "Course",
+        messenger: "Choose Messenger",
+        telegram: "Telegram",
+        whatsapp: "WhatsApp",
+        submit: "Submit"
+      },
+      ru: {
+        title: "Форма регистрации",
+        child_name: "Имя ребёнка",
+        birth_date: "Дата рождения",
+        salutation: "Обращение",
+        parent_name: "Имя родителя",
+        email: "Email",
+        phone: "Телефон",
+        city: "Город",
+        course: "Курс",
+        messenger: "Выберите мессенджер",
+        telegram: "Телеграм",
+        whatsapp: "Вотсап",
+        submit: "Отправить"
+      }
+    };
+
+    const lang = (navigator.language || 'en').substring(0, 2);
+    const t = translations[lang] || translations['en'];
+
+    window.addEventListener("DOMContentLoaded", () => {
+      for (const key in t) {
+        const el = document.querySelector(`[data-i18n=${key}]`);
+        if (el) el.textContent = t[key];
+      }
+    });
+
+    async function submitForm(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = Object.fromEntries(new FormData(form).entries());
+      data.language = lang;
+      data.status = "registered";
+      const res = await fetch("https://walrus-app-2jjgm.ondigitalocean.app/webhook/register-and-redirect", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      const result = await res.json();
+      if (result.url) window.location.href = result.url;
+      else alert("Error: no redirect URL received.");
+    }
+  </script>
+</head>
+<body>
+  <h2 data-i18n="title"></h2>
+  <form onsubmit="submitForm(event)">
+    <input name="children" placeholder="..." required data-i18n-placeholder="child_name"><br>
+    <input name="birth_date" type="date" required><br>
+    <input name="salutation" placeholder="..." required data-i18n-placeholder="salutation"><br>
+    <input name="parent_name" placeholder="..." required data-i18n-placeholder="parent_name"><br>
+    <input name="email" type="email" required><br>
+    <input name="phone" placeholder="..." required data-i18n-placeholder="phone"><br>
+    <input name="city" placeholder="..." required data-i18n-placeholder="city"><br>
+    <input name="course" placeholder="..." required data-i18n-placeholder="course"><br>
+    <label data-i18n="messenger"></label><br>
+    <label><input type="radio" name="messenger" value="Telegram" required> <span data-i18n="telegram"></span></label><br>
+    <label><input type="radio" name="messenger" value="WhatsApp"> <span data-i18n="whatsapp"></span></label><br><br>
+    <button type="submit" data-i18n="submit"></button>
+  </form>
+</body>
+</html>
