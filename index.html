@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -115,14 +114,18 @@
         method: form.method,
         body: formData
       })
-      .then(response => response.json())
       .then(result => {
-        if (result.url) {
-          window.location.href = result.url;
-        } else {
-          alert("Keine Weiterleitungs-URL erhalten.");
-        }
-      })
+  if (result.url) {
+    const link = document.createElement('a');
+    link.href = result.url;
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } else {
+    alert("Keine Weiterleitungs-URL erhalten.");
+  }
+})
       .catch(error => {
         console.error('Fehler bei der Registrierung:', error);
         alert('Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.');
