@@ -59,20 +59,16 @@
 <body>
   <div class="container">
     <h1 data-i18n="messenger_title">Wählen Sie einen Messenger</h1>
-
     <a id="whatsappBtn" class="messenger-button whatsapp" href="#">
       <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
       <span data-i18n="messenger_whatsapp">WhatsApp</span>
     </a>
-
     <div class="separator"></div>
-
     <a id="telegramBtn" class="messenger-button telegram" href="#">
       <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
       <span data-i18n="messenger_telegram">Telegram</span>
     </a>
   </div>
-
   <script>
     (async () => {
       // Загрузка переводов
@@ -81,7 +77,6 @@
       if (!available.includes(lang)) lang = 'en';
       if (lang === 'ar') document.documentElement.dir = 'rtl';
       window.userLang = lang;
-
       let t = {};
       try {
         const res = await fetch(`locales/${lang}.json`);
@@ -93,26 +88,22 @@
       } catch (e) {
         console.error('Ошибка загрузки переводов', e);
       }
-
       // Логика выбора мессенджера
       const token = new URLSearchParams(window.location.search).get('token') || '';
       if (!token) {
         alert(t['error_no_token'] || 'Fehler: Kein Token gefunden.');
         return;
       }
-
       // Подготовка ссылок
       const waMessage = t['wa_message'];
       const waHref   = `https://api.whatsapp.com/send?phone=4915560490150&text=${encodeURIComponent(waMessage)}`;
       const tgHref   = `https://t.me/KinderkunstschuleBot?start=${token}`;
       const waBtn    = document.getElementById('whatsappBtn');
       const tgBtn    = document.getElementById('telegramBtn');
-
       waBtn.setAttribute('href', waHref);
       tgBtn.setAttribute('href', tgHref);
-
       function sendChoice(messenger, href) {
-        fetch('https://kunst.app.n8n.cloud/webhook/choose-messenger', {
+        fetch('https://walrus-app-2jjgm.ondigitalocean.app/webhook/choose-messenger', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -126,7 +117,6 @@
           window.open(href, '_blank');
         });
       }
-
       waBtn.addEventListener('click', e => {
         e.preventDefault();
         sendChoice('whatsapp', waHref);
