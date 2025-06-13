@@ -22,9 +22,7 @@
   <div class="container">
     <h1 data-i18n="title">Jetzt anmelden</h1>
 
-    <form id="anmeldeFormular"
-          action="https://kunst.app.n8n.cloud/webhook/register-user"
-          method="post" accept-charset="utf-8">
+   <form id="anmeldeFormular" accept-charset="utf-8">
 
       <!-- Hidden language field (уже есть) -->
       <input type="hidden" name="language" id="language-input" value="">
@@ -115,7 +113,10 @@
       hiddenInput.value = iti.getNumber();
       const formData = new FormData(form);
       try {
-        const resp = await fetch(form.action, { method: form.method, body: formData });
+        const resp = await fetch("https://walrus-app-2jjgm.ondigitalocean.app/webhook/register-user", {
+  method: 'POST',
+  body: formData
+});
         if (!resp.ok) throw new Error(`Server error: ${resp.status}`);
         const { redirectUrl } = await resp.json();
         window.location.href = redirectUrl;
