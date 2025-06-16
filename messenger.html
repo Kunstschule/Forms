@@ -96,8 +96,9 @@
 
   <script>
     (async () => {
-      const available = ['ru','de','en','es','it','tr','ar'];
-      let lang = navigator.language.slice(0,2);
+      // ✅ Обновлён список поддерживаемых языков
+      const available = ['ru', 'de', 'en', 'es', 'it', 'tr', 'ar', 'uk', 'bg', 'pl', 'fr', 'ro'];
+      let lang = navigator.language.slice(0, 2);
       if (!available.includes(lang)) lang = 'en';
       if (lang === 'ar') document.documentElement.dir = 'rtl';
       window.userLang = lang;
@@ -158,6 +159,9 @@
 
           statusMsg.textContent = t['opening_messenger'] || 'Открываем мессенджер...';
           window.open(href, '_blank');
+
+          // ✅ Добавлен редирект на страницу Спасибо
+          window.location.href = '/thanks.html';
 
         } catch (err) {
           console.error('Ошибка:', err);
