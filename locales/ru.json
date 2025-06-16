@@ -17,5 +17,7 @@
   "messenger_title": "Выберите мессенджер",
   "messenger_whatsapp": "WhatsApp",
   "messenger_telegram": "Telegram",
-  "wa_message": "Отправьте это сообщение, для подтверждения вашего номера телефона."
+  "wa_message": "Отправьте это сообщение, для подтверждения вашего номера телефона.",
+  "thanks_title": "Спасибо за выбор Kunstschule Hurvich!",
+  "thanks_message": "Спасибо за выбор Kunstschule Hurvich!"
 }
