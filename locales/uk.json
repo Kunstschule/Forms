@@ -1,0 +1,23 @@
+{
+  "title": "Реєстрація",
+  "label_city": "Місто школи *",
+  "option_choose": "Будь ласка, оберіть",
+  "label_course": "Виберіть курс малювання *",
+  "course_general": "Загальний курс живопису",
+  "course_development": "Розвиваючий курс для малюків",
+  "course_plastilinography": "Курс пластилінографії",
+  "course_creativity": "Курс розвитку креативності",
+  "label_children": "ПІБ дитини *",
+  "label_birth_date": "Дата народження дитини *",
+  "label_salutation": "Як до вас звертатися? *",
+  "label_parent_name": "Ваші ПІБ *",
+  "label_email": "Ваша електронна адреса *",
+  "label_phone": "Номер телефону *",
+  "btn_submit": "Обрати месенджер",
+  "messenger_title": "Обрати месенджер",
+  "messenger_whatsapp": "WhatsApp",
+  "messenger_telegram": "Telegram",
+  "wa_message": "Надішліть це повідомлення для підтвердження вашого номера телефону.",
+  "thanks_title": "Дякуємо за вибір Kunstschule Hurvich!",
+  "thanks_message": "Дякуємо за вибір Kunstschule Hurvich!"
+}
