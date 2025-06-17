@@ -1,0 +1,23 @@
+{
+  "title": "Регистрация",
+  "label_city": "Град на училището *",
+  "option_choose": "Моля, изберете",
+  "label_course": "Изберете курс по рисуване *",
+  "course_general": "Общ курс по живопис",
+  "course_development": "Развиващ курс за малки деца",
+  "course_plastilinography": "Курс по пластилинография",
+  "course_creativity": "Курс за развитие на креативността",
+  "label_children": "Пълно име на детето *",
+  "label_birth_date": "Дата на раждане на детето *",
+  "label_salutation": "Как да се обръщаме към вас? *",
+  "label_parent_name": "Вашето пълно име *",
+  "label_email": "Вашият имейл адрес *",
+  "label_phone": "Телефонен номер *",
+  "btn_submit": "Изберете месинджър",
+  "messenger_title": "Изберете месинджър",
+  "messenger_whatsapp": "WhatsApp",
+  "messenger_telegram": "Telegram",
+  "wa_message": "Изпратете това съобщение, за да потвърдите телефонния си номер.",
+  "thanks_title": "Благодарим Ви, че избрахте Kunstschule Hurvich!",
+  "thanks_message": "Благодарим Ви, че избрахте Kunstschule Hurvich!"
+}
