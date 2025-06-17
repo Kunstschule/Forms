@@ -1,0 +1,23 @@
+{
+  "title": "Inscription",
+  "label_city": "Ville de l'école *",
+  "option_choose": "Veuillez choisir",
+  "label_course": "Choisissez un cours de dessin *",
+  "course_general": "Cours général de peinture",
+  "course_development": "Cours de développement pour enfants",
+  "course_plastilinography": "Cours de plastilinographie",
+  "course_creativity": "Cours de développement de la créativité",
+  "label_children": "Nom complet de l'enfant *",
+  "label_birth_date": "Date de naissance de l'enfant *",
+  "label_salutation": "Comment devons-nous vous appeler ? *",
+  "label_parent_name": "Votre nom complet *",
+  "label_email": "Votre adresse e-mail *",
+  "label_phone": "Numéro de téléphone *",
+  "btn_submit": "Choisir le messager",
+  "messenger_title": "Choisir le messager",
+  "messenger_whatsapp": "WhatsApp",
+  "messenger_telegram": "Telegram",
+  "wa_message": "Envoyez ce message pour confirmer votre numéro de téléphone.",
+  "thanks_title": "Merci d'avoir choisi Kunstschule Hurvich !",
+  "thanks_message": "Merci d'avoir choisi Kunstschule Hurvich !"
+}
