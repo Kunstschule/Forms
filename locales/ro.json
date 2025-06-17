@@ -1,0 +1,23 @@
+{
+  "title": "Înregistrare",
+  "label_city": "Orașul școlii *",
+  "option_choose": "Vă rugăm să alegeți",
+  "label_course": "Alegeți un curs de pictură *",
+  "course_general": "Curs general de pictură",
+  "course_development": "Curs de dezvoltare pentru copii",
+  "course_plastilinography": "Curs de plastilinografie",
+  "course_creativity": "Curs de dezvoltare a creativității",
+  "label_children": "Numele complet al copilului *",
+  "label_birth_date": "Data nașterii copilului *",
+  "label_salutation": "Cum doriți să vă adresăm? *",
+  "label_parent_name": "Numele și prenumele dvs. *",
+  "label_email": "Adresa dvs. de e-mail *",
+  "label_phone": "Număr de telefon *",
+  "btn_submit": "Alegeți mesagerul",
+  "messenger_title": "Alegeți mesagerul",
+  "messenger_whatsapp": "WhatsApp",
+  "messenger_telegram": "Telegram",
+  "wa_message": "Trimiteți acest mesaj pentru a confirma numărul dvs. de telefon.",
+  "thanks_title": "Vă mulțumim că ați ales Kunstschule Hurvich!",
+  "thanks_message": "Vă mulțumim că ați ales Kunstschule Hurvich!"
+}
