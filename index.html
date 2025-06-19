@@ -9,22 +9,45 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css">
 
   <style>
-    body{font-family:sans-serif;background:#F4F8FD;color:#0D007A;margin:0;padding:20px}
-    .container{max-width:600px;margin:0 auto;background:#F4F8FD;padding:30px;border-radius:16px;box-shadow:0 0 12px rgba(0,0,0,.08)}
-    h1{text-align:center;color:#0D007A}
-    label{display:block;margin-top:15px;font-weight:bold}
-    input,select{width:100%;padding:10px;margin-top:5px;border:1px solid #ccc;border-radius:8px;font-size:16px;color:#0D007A}
-    button{margin-top:25px;padding:14px;width:100%;background:#0D007A;color:#fff;font-size:18px;border:none;border-radius:10px;cursor:pointer}
-    button:hover{background:#07005b}
+    body { font-family: sans-serif; background: #F4F8FD; color: #0D007A; margin: 0; padding: 20px }
+    .container { max-width: 600px; margin: 0 auto; background: #F4F8FD; padding: 30px; border-radius: 16px; box-shadow: 0 0 12px rgba(0,0,0,.08) }
+    h1 { text-align: center; color: #0D007A }
+    label { display: block; margin-top: 15px; font-weight: bold }
+    input, select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; color: #0D007A }
+    button { margin-top: 25px; padding: 14px; width: 100%; background: #0D007A; color: #fff; font-size: 18px; border: none; border-radius: 10px; cursor: pointer }
+    button:hover { background: #07005b }
+
+    /* Новый оверлей */
+    #loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 6px solid #ccc;
+      border-top-color: #0D007A;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1 data-i18n="title">Jetzt anmelden</h1>
 
-   <form id="anmeldeFormular" accept-charset="utf-8">
-
-      <!-- Hidden language field (уже есть) -->
+    <form id="anmeldeFormular" accept-charset="utf-8">
       <input type="hidden" name="language" id="language-input" value="">
 
       <label data-i18n="label_city" for="city">Standort der Schule *</label>
@@ -70,6 +93,10 @@
     </form>
   </div>
 
+  <div id="loading-overlay">
+    <div class="spinner"></div>
+  </div>
+
   <!-- Translation script -->
   <script>
     (async () => {
@@ -96,6 +123,8 @@
   <script>
     const input = document.getElementById('phone');
     const hiddenInput = document.getElementById('phoneHidden');
+    const overlay = document.getElementById('loading-overlay');
+
     const iti = window.intlTelInput(input, {
       initialCountry: "auto",
       geoIpLookup: cb => {
@@ -110,19 +139,26 @@
     const form = document.getElementById('anmeldeFormular');
     form.addEventListener('submit', async e => {
       e.preventDefault();
+      overlay.style.display = 'flex';
+
       hiddenInput.value = iti.getNumber();
       const formData = new FormData(form);
+
       try {
         const resp = await fetch("https://walrus-app-2jjgm.ondigitalocean.app/webhook/register-user", {
-  method: 'POST',
-  body: formData
-});
+          method: 'POST',
+          headers: {
+            'X-Webhook-Token': '9f2b7d3c5e1a4f8b6c0e2d9a7f1c3b4e'
+          },
+          body: formData
+        });
         if (!resp.ok) throw new Error(`Server error: ${resp.status}`);
         const { redirectUrl } = await resp.json();
         window.location.href = redirectUrl;
       } catch (error) {
         console.error('Ошибка при регистрации:', error);
         alert('Извините, произошла ошибка. Попробуйте ещё раз.');
+        overlay.style.display = 'none';
       }
     });
   </script>
