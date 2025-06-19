@@ -114,7 +114,7 @@
 
           statusMsg.textContent = t['opening_messenger'] || 'Открываем мессенджер...';
           window.open(href, '_blank');
-          window.location.href = '/thanks.html';
+          window.location.href = 'thanks.html';
         } catch (err) {
           console.error('Ошибка:', err);
           alert(t['error_send_failed'] || 'Ошибка отправки. Попробуйте ещё раз.');
