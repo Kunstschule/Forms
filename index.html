@@ -139,9 +139,24 @@
     const form = document.getElementById('anmeldeFormular');
     form.addEventListener('submit', async e => {
       e.preventDefault();
-      overlay.style.display = 'flex';
 
-      hiddenInput.value = iti.getNumber();
+      // --- валидация email и телефона (Этап 3) ---
+      const email = form.querySelector('input[name="email"]').value.trim();
+      const phoneNumber = iti.getNumber(); // номер в формате +123...
+      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneRe = /^\+?\d{7,15}$/;
+      if (!emailRe.test(email) || !phoneRe.test(phoneNumber)) {
+        alert(
+          'Неверный формат данных:\n' +
+          '• email: example@site.com\n' +
+          '• телефон: +1234567890'
+        );
+        return;
+      }
+      // --- конец валидации ---
+
+      overlay.style.display = 'flex';
+      hiddenInput.value = phoneNumber;
       const formData = new FormData(form);
 
       try {
